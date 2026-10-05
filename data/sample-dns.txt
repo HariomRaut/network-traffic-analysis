@@ -1,0 +1,8 @@
+# Example DNS query extracted from a capture
+# Query: www.example.com
+# Type: A (IPv4 address)
+# Class: IN
+# ID: 0x1234
+# Flags: 0x0100 (standard query)
+# No recursion desired? (usually set)
+# Answer: (none in query)

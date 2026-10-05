@@ -1,0 +1,6 @@
+# Placeholder for a packet capture file.
+# In an actual lab, you would capture traffic using Wireshark/tshark
+# (e.g., tshark -i eth0 -w data/sample.pcap) and then analyse it
+# with the analyse-pcap.py script.
+# This file is intentionally left empty; replace with a real .pcap
+# when performing the exercise.

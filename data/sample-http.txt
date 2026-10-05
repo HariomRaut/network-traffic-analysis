@@ -1,0 +1,18 @@
+# Example HTTP request/response extracted from a capture
+# Request:
+# GET /index.html HTTP/1.1
+# Host: example.com
+# User-Agent: curl/7.68.0
+# Accept: */*
+#
+# Response:
+# HTTP/1.1 200 OK
+# Date: Mon, 05 Oct 2025 12:00:00 GMT
+# Server: Apache/2.4.41 (Ubuntu)
+# Last-Modified: Sun, 04 Oct 2025 20:00:00 GMT
+# ETag: "3a2b-5b0a8c0a1b800"
+# Accept-Ranges: bytes
+# Content-Length: 14923
+# Content-Type: text/html
+#
+# (HTML body omitted for brevity)

@@ -1,0 +1,68 @@
+# Example Cisco IOS commands for VLAN creation, trunking, and ACL
+# (Matches the topology described in docs/packet-tracer-guide.md)
+
+! --- Switch Configuration ---
+enable
+configure terminal
+vlan 10
+ name Faculty
+exit
+vlan 20
+ name Students
+exit
+vlan 30
+ name Servers
+exit
+! Assign access ports (adjust interface numbers as needed)
+interface range gig0/2 - gig0/4
+ switchport mode access
+exit
+interface gig0/2
+ switchport access vlan 10
+exit
+interface gig0/3
+ switchport access vlan 20
+exit
+interface gig0/4
+ switchport access vlan 30
+exit
+! Trunk port to router
+interface gig0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+exit
+end
+write memory
+
+! --- Router Configuration (Router‑on‑a‑Stick) ---
+enable
+configure terminal
+interface gig0/0
+ no ip address
+exit
+! Sub‑interfaces for each VLAN
+interface gig0/0.10
+ encapsulation dot1q 10
+ ip address 192.168.10.1 255.255.255.0
+exit
+interface gig0/0.20
+ encapsulation dot1q 20
+ ip address 192.168.20.1 255.255.255.0
+exit
+interface gig0/0.30
+ encapsulation dot1q 30
+ ip address 192.168.30.1 255.255.255.0
+exit
+ip routing
+! Example ACL: allow Students (VLAN20) to access Servers (VLAN30) only on HTTP/HTTPS
+access-list 100 permit tcp any 192.168.30.0 0.0.0.255 eq www
+access-list 100 permit tcp any 192.168.30.0 0.0.0.255 eq 443
+access-list 100 deny   ip 192.168.20.0 0.0.0.255 192.168.30.0 0.0.0.255
+access-list 100 permit ip any any
+! Apply ACL outbound on server-facing sub‑interface
+interface gig0/0.30
+ ip access-group 100 out
+exit
+end
+write memory
